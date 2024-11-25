@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Cooking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gotowanie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 </head>
 <body>
-    <h1>Cooking</h1>
+    <nav>
+        <a href="/">Zarządzanie Zakupami</a>
+    </nav>
+    <h1>Gotowanie</h1>
     <form method="POST">
-        {% for product in products %}
-        <div>
-            <input type="checkbox" id="product_{{ product.id }}" name="products" value="{{ product.id }}">
-            <label for="product_{{ product.id }}">{{ product.name }} - {{ product.quantity }}</label>
-        </div>
-        {% endfor %}
-        <button type="submit">Cook</button>
+        <!-- Lista produktów do gotowania -->
     </form>
 </body>
 </html>
