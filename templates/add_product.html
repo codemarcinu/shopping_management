@@ -1,51 +1,49 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+</head>
+<body>
+    <h1>Add Product</h1>
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
 
-{% block title %}Dodaj Produkt{% endblock %}
-
-{% block content %}
-<div class="container">
-    <h1>Dodaj Produkt</h1>
-    <form method="POST" class="form-container">
-        <label for="nazwa">Nazwa:</label>
-        <input type="text" id="nazwa" name="nazwa" placeholder="Wprowadź nazwę produktu" required>
-
-        <label for="kategoria">Kategoria:</label>
-        <select id="kategoria" name="kategoria" required>
-            <option value="" disabled selected>Wybierz kategorię</option>
-            {% for kategoria in kategorie %}
-            <option value="{{ kategoria }}">{{ kategoria }}</option>
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
             {% endfor %}
-        </select>
+        </select><br>
 
-        <label for="data_zakupu">Data zakupu:</label>
-        <input type="date" id="data_zakupu" name="data_zakupu" required>
+        <label for="purchase_date">Purchase Date:</label>
+        <input type="date" id="purchase_date" name="purchase_date"><br>
 
-        <label for="data_waznosci">Data ważności:</label>
-        <input type="date" id="data_waznosci" name="data_waznosci">
+        <label for="expiry_date">Expiry Date:</label>
+        <input type="date" id="expiry_date" name="expiry_date"><br>
 
-        <label for="ilosc">Ilość:</label>
-        <input type="number" id="ilosc" name="ilosc" min="1" placeholder="Wprowadź ilość" required>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity"><br>
 
-        <label for="cena">Cena:</label>
-        <input type="number" id="cena" name="cena" step="0.01" placeholder="Wprowadź cenę" required>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01"><br>
 
-        <label for="lokalizacja">Lokalizacja:</label>
-        <select id="lokalizacja" name="lokalizacja" required>
-            <option value="" disabled selected>Wybierz lokalizację</option>
-            {% for lokalizacja in lokalizacje %}
-            <option value="{{ lokalizacja }}">{{ lokalizacja }}</option>
+        <label for="location">Location:</label>
+        <select id="location" name="location">
+            {% for location in locations %}
+                <option value="{{ location }}">{{ location }}</option>
             {% endfor %}
-        </select>
+        </select><br>
 
         <label for="status">Status:</label>
-        <select id="status" name="status" required>
-            <option value="" disabled selected>Wybierz status</option>
-            {% for status in statusy %}
-            <option value="{{ status }}">{{ status }}</option>
+        <select id="status" name="status">
+            {% for status in statuses %}
+                <option value="{{ status }}">{{ status }}</option>
             {% endfor %}
-        </select>
+        </select><br>
 
-        <button type="submit" class="button">Dodaj Produkt</button>
+        <button type="submit">Add Product</button>
     </form>
-</div>
-{% endblock %}
+</body>
+</html>
