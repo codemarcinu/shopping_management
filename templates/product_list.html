@@ -9,92 +9,104 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <!-- Style -->
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
+      <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
 
-        nav {
-            background-color: #6200EE;
-            padding: 1rem;
-            text-align: center;
-        }
+    nav {
+        background-color: #6200EE;
+        padding: 1rem;
+        text-align: center;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.5rem;
-        }
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
-        }
+    .container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+    }
 
-        h3 {
-            text-align: center;
-            color: #6200EE;
-            margin-bottom: 1rem;
-        }
+    h3 {
+        text-align: center;
+        color: #6200EE;
+        margin-bottom: 1rem;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 1rem;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+    }
 
-        th, td {
-            padding: 0.75rem;
-            text-align: left;
-        }
+    th, td {
+        padding: 0.75rem;
+        text-align: left;
+        font-size: 0.9rem; /* Dodajemy czytelność */
+    }
 
-        th {
-            background-color: #6200EE;
-            color: white;
-        }
+    th {
+        background-color: #6200EE;
+        color: #FFFFFF; /* Biały tekst na fioletowym tle */
+    }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
+    tr:nth-child(even) {
+        background-color: #f9f9f9; /* Jasnoszare tło dla wierszy parzystych */
+    }
 
-        .status-available {
-            color: green;
-        }
+    tr:nth-child(odd) {
+        background-color: #FFFFFF; /* Białe tło dla wierszy nieparzystych */
+    }
 
-        .status-unavailable {
-            color: red;
-        }
+    td {
+        color: #333333; /* Ciemnoszary tekst */
+    }
 
-        .status-running-low {
-            color: orange;
-        }
+    .status-available {
+        color: green;
+    }
 
-        .btn {
-            padding: 0.5rem 1rem;
-            color: white;
-            background-color: #6200EE;
-            text-decoration: none;
-            border-radius: 4px;
-            display: inline-block;
-        }
+    .status-unavailable {
+        color: red;
+    }
 
-        .btn:hover {
-            background-color: #3700B3;
-        }
+    .status-running-low {
+        color: orange;
+    }
 
-        .btn-delete {
-            background-color: #B00020;
-        }
+    .btn {
+        padding: 0.5rem 1rem;
+        color: white;
+        background-color: #6200EE;
+        text-decoration: none;
+        border-radius: 4px;
+        display: inline-block;
+        text-align: center;
+    }
 
-        .btn-delete:hover {
-            background-color: #7E0016;
-        }
+    .btn:hover {
+        background-color: #3700B3;
+    }
+
+    .btn-delete {
+        background-color: #B00020;
+    }
+
+    .btn-delete:hover {
+        background-color: #7E0016;
+    }
+
     </style>
 </head>
 <body>
