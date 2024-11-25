@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Shopping Management{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Zarządzanie Zakupami{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Shopping Management</h1>
-        <nav>
-            <a href="{{ url_for('main.index') }}">Home</a>
-            <a href="{{ url_for('main.add_product') }}">Add Product</a>
-            <a href="{{ url_for('main.list_products') }}">Inventory</a>
-            <a href="{{ url_for('main.cook') }}">Cook</a>
-        </nav>
-    </header>
+    <nav>
+        <a href="{{ url_for('main.index') }}">Strona Główna</a>
+        <a href="{{ url_for('main.add_product') }}">Dodaj Produkt</a>
+        <a href="{{ url_for('main.list_products') }}">Lista Produktów</a>
+        <a href="{{ url_for('main.cook') }}">Gotowanie</a>
+    </nav>
     <main>
         {% block content %}{% endblock %}
     </main>
     <footer>
-        <p>&copy; 2024 Shopping Management</p>
+        <p>&copy; 2024 Zarządzanie Zakupami</p>
     </footer>
 </body>
 </html>
-
