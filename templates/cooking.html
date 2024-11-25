@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gotuję</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <title>Cooking</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Gotowanie</h1>
-        <form method="POST" class="form-container">
-            <!-- Produkty do użycia -->
-            <button type="submit" class="button">Gotuj</button>
-        </form>
-    </div>
+    <h1>Cooking</h1>
+    <form method="POST">
+        {% for product in products %}
+        <div>
+            <input type="checkbox" id="product_{{ product.id }}" name="products" value="{{ product.id }}">
+            <label for="product_{{ product.id }}">{{ product.name }} - {{ product.quantity }}</label>
+        </div>
+        {% endfor %}
+        <button type="submit">Cook</button>
+    </form>
 </body>
 </html>
