@@ -1,23 +1,23 @@
-
 from flask import Flask
-from config import Config
+from routes import main
+from db import initialize_db, close_db
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_pyfile('config.py')  # Ładowanie konfiguracji bezpośrednio z pliku config.py
 
     # Inicjalizacja bazy danych
-    from db import initialize_db, close_db
     with app.app_context():
         initialize_db()
-    app.teardown_appcontext(close_db)
 
-    # Rejestracja routingów
-    from routes import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    # Rejestracja blueprintów
+    app.register_blueprint(main)
+
+    # Obsługa zamykania połączenia z bazą danych
+    app.teardown_appcontext(close_db)
 
     return app
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = create_app()
     app.run(debug=True)
