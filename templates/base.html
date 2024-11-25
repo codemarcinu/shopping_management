@@ -1,33 +1,25 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Zarządzanie Zakupami{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>{% block title %}Shopping Management{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <!-- Nawigacja -->
-    <nav class="main-nav">
-        <ul>
-            <li><a href="{{ url_for('main.index') }}" class="{% if request.endpoint == 'main.index' %}active{% endif %}">Strona Główna</a></li>
-            <li><a href="{{ url_for('main.add_product') }}" class="{% if request.endpoint == 'main.add_product' %}active{% endif %}">Dodaj Produkt</a></li>
-            <li><a href="{{ url_for('main.list_products') }}" class="{% if request.endpoint == 'main.list_products' %}active{% endif %}">Lista Produktów</a></li>
-            <li><a href="{{ url_for('main.cook') }}" class="{% if request.endpoint == 'main.cook' %}active{% endif %}">Gotowanie</a></li>
-        </ul>
-    </nav>
-
-    <!-- Główna treść strony -->
-    <main class="content">
-        {% block content %}
-        <!-- Dynamiczna zawartość -->
-        {% endblock %}
+    <header>
+        <h1>Shopping Management</h1>
+        <nav>
+            <a href="{{ url_for('main.index') }}">Home</a>
+            <a href="{{ url_for('main.add_product') }}">Add Product</a>
+            <a href="{{ url_for('main.list_products') }}">Inventory</a>
+            <a href="{{ url_for('main.cook') }}">Cook</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
     </main>
-
-    <!-- Stopka -->
-    <footer class="main-footer">
-        <p>&copy; 2024 Zarządzanie Zakupami. Wszystkie prawa zastrzeżone.</p>
+    <footer>
+        <p>&copy; 2024 Shopping Management</p>
     </footer>
 </body>
 </html>
