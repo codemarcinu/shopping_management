@@ -69,19 +69,43 @@ def lista_produktow():
     sortuj_po = request.args.get('sortuj_po', 'name')
     kolejnosc = request.args.get('kolejnosc', 'asc')
 
+    kategoria = request.args.get('kategoria')
+    status = request.args.get('status')
+    lokalizacja = request.args.get('lokalizacja')
+
     kolumny_sortowania = ['name', 'purchase_date', 'expiry_date', 'quantity']
     if sortuj_po not in kolumny_sortowania:
         sortuj_po = 'name'
 
     kolejnosc_sql = 'ASC' if kolejnosc == 'asc' else 'DESC'
 
-    with get_db_connection() as conn:
-        produkty = conn.execute(f'''
-            SELECT * FROM products
-            ORDER BY {sortuj_po} {kolejnosc_sql}
-        ''').fetchall()
+    query = 'SELECT * FROM products WHERE 1=1'
+    params = []
 
-    return render_template('product_list.html', produkty=produkty, sortuj_po=sortuj_po, kolejnosc=kolejnosc)
+    # Dodajemy filtry, jeśli są podane
+    if kategoria:
+        query += ' AND category = ?'
+        params.append(kategoria)
+    if status:
+        query += ' AND status = ?'
+        params.append(status)
+    if lokalizacja:
+        query += ' AND location = ?'
+        params.append(lokalizacja)
+
+    query += f' ORDER BY {sortuj_po} {kolejnosc_sql}'
+
+    with get_db_connection() as conn:
+        produkty = conn.execute(query, params).fetchall()
+
+    return render_template(
+        'product_list.html',
+        produkty=produkty,
+        sortuj_po=sortuj_po,
+        kolejnosc=kolejnosc,
+        categories=current_app.config['CATEGORIES'],
+        locations=current_app.config['LOCATIONS']
+    )
 
 @main.route('/co-mam')
 def co_mam():
