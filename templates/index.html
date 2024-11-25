@@ -7,50 +7,104 @@
     <!-- Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <!-- Wbudowane style -->
+    <style>
+        :root {
+            --md-primary: #6200EE; /* Primary kolor */
+            --md-primary-container: #BB86FC; /* Primary Container */
+            --md-secondary: #03DAC6; /* Secondary */
+            --md-background: #F5F5F5; /* Tło */
+            --md-surface: #FFFFFF; /* Powierzchnie */
+            --md-on-primary: #FFFFFF; /* Tekst na kolorze primary */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--md-background);
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: var(--md-primary);
+            padding: 1rem;
+        }
+
+        nav a {
+            color: var(--md-on-primary);
+            font-size: 1.5rem;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: var(--md-surface);
+            border-radius: 12px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card i, .card .material-symbols-outlined {
+            font-size: 48px;
+            color: var(--md-primary);
+            margin-bottom: 10px;
+        }
+
+        .card .btn {
+            background-color: var(--md-primary);
+            color: var(--md-on-primary);
+            border-radius: 20px;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .card .btn:hover {
+            background-color: var(--md-primary-container);
+        }
+    </style>
 </head>
 <body>
     <nav>
-        <div class="nav-wrapper">
-            <a href="/" class="brand-logo center">Zarządzanie Zakupami</a>
-        </div>
+        <a href="/">Zarządzanie Zakupami</a>
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-content center-align">
-                        <span class="material-symbols-outlined">shopping_cart</span>
-                        <span class="card-title">Zrobiłem zakupy</span>
-                        <p>Dodaj nowe produkty do bazy danych.</p>
-                    </div>
-                    <div class="card-action center-align">
-                        <a href="/dodaj" class="btn waves-effect waves-light">Przejdź</a>
-                    </div>
-                </div>
+            <div class="card">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <h3>Zrobiłem zakupy</h3>
+                <p>Dodaj nowe produkty do bazy danych.</p>
+                <a href="/dodaj" class="btn">Przejdź</a>
             </div>
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-content center-align">
-                        <span class="material-symbols-outlined">inventory</span>
-                        <span class="card-title">Co mam?</span>
-                        <p>Wyświetl listę wszystkich dostępnych produktów.</p>
-                    </div>
-                    <div class="card-action center-align">
-                        <a href="/co-mam" class="btn waves-effect waves-light">Przejdź</a>
-                    </div>
-                </div>
+            <div class="card">
+                <span class="material-symbols-outlined">inventory</span>
+                <h3>Co mam?</h3>
+                <p>Wyświetl listę wszystkich dostępnych produktów.</p>
+                <a href="/co-mam" class="btn">Przejdź</a>
             </div>
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-content center-align">
-                        <span class="material-symbols-outlined">restaurant_menu</span>
-                        <span class="card-title">Gotuję</span>
-                        <p>Zużyj produkty podczas gotowania.</p>
-                    </div>
-                    <div class="card-action center-align">
-                        <a href="/gotuje" class="btn waves-effect waves-light">Przejdź</a>
-                    </div>
-                </div>
+            <div class="card">
+                <span class="material-symbols-outlined">restaurant_menu</span>
+                <h3>Gotuję</h3>
+                <p>Zużyj produkty podczas gotowania.</p>
+                <a href="/gotuje" class="btn">Przejdź</a>
             </div>
         </div>
     </div>
