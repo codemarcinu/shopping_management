@@ -67,4 +67,20 @@
                 <tr>
                     <td>{{ produkt['name'] }}</td>
                     <td>{{ produkt['category'] }}</td>
-                    <td>{{ produkt['purchase_date']
+                    <td>{{ produkt['purchase_date'] }}</td>
+                    <td>{{ produkt['expiry_date'] or '-' }}</td>
+                    <td>{{ produkt['quantity'] }}</td>
+                    <td>{{ produkt['store'] }}</td>
+                    <td class="status-{{ produkt['status'] }}">{{ produkt['status'] }}</td>
+                    <td>
+                        <form method="POST" action="/usun/{{ produkt['id'] }}" style="display:inline;">
+                            <button type="submit" class="btn btn-delete">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
