@@ -4,81 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strona Główna</title>
-    <!-- Google Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <!-- Wbudowane style -->
     <style>
         :root {
-            --md-primary: #6200EE; /* Primary kolor */
-            --md-primary-container: #BB86FC; /* Primary Container */
-            --md-secondary: #03DAC6; /* Secondary */
-            --md-background: #F5F5F5; /* Tło */
-            --md-surface: #FFFFFF; /* Powierzchnie */
-            --md-on-primary: #FFFFFF; /* Tekst na kolorze primary */
+            --primary-color: #2C2C2C; 
+            --secondary-color: #3A3A3A;
+            --text-color: #F5F5F5;
+            --hover-color: #444444; 
         }
-
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--md-background);
-            margin: 0;
-            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
         }
-
         nav {
-            background-color: var(--md-primary);
+            background-color: var(--secondary-color);
             padding: 1rem;
         }
-
         nav a {
-            color: var(--md-on-primary);
-            font-size: 1.5rem;
+            color: var(--text-color);
             text-decoration: none;
+            font-size: 1.5rem;
             text-align: center;
             display: block;
         }
-
         .container {
             max-width: 1200px;
             margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .row {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            background-color: var(--md-surface);
-            border-radius: 12px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: 1rem;
-            padding: 1.5rem;
             text-align: center;
         }
-
-        .card i, .card .material-symbols-outlined {
-            font-size: 48px;
-            color: var(--md-primary);
-            margin-bottom: 10px;
+        .card {
+            background-color: var(--secondary-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem auto;
         }
-
-        .card .btn {
-            background-color: var(--md-primary);
-            color: var(--md-on-primary);
-            border-radius: 20px;
-            font-weight: 500;
+        .btn {
+            background-color: var(--hover-color);
+            color: var(--text-color);
+            border-radius: 8px;
             text-decoration: none;
             padding: 0.5rem 1rem;
             display: inline-block;
-            margin-top: 1rem;
-        }
-
-        .card .btn:hover {
-            background-color: var(--md-primary-container);
         }
     </style>
 </head>
@@ -87,25 +55,10 @@
         <a href="/">Zarządzanie Zakupami</a>
     </nav>
     <div class="container">
-        <div class="row">
-            <div class="card">
-                <span class="material-symbols-outlined">shopping_cart</span>
-                <h3>Zrobiłem zakupy</h3>
-                <p>Dodaj nowe produkty do bazy danych.</p>
-                <a href="/dodaj" class="btn">Przejdź</a>
-            </div>
-            <div class="card">
-                <span class="material-symbols-outlined">inventory</span>
-                <h3>Co mam?</h3>
-                <p>Wyświetl listę wszystkich dostępnych produktów.</p>
-                <a href="/co-mam" class="btn">Przejdź</a>
-            </div>
-            <div class="card">
-                <span class="material-symbols-outlined">restaurant_menu</span>
-                <h3>Gotuję</h3>
-                <p>Zużyj produkty podczas gotowania.</p>
-                <a href="/gotuje" class="btn">Przejdź</a>
-            </div>
+        <h3>Witaj na stronie!</h3>
+        <div class="card">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <h3>Zrobiłem zakupy</h3>
         </div>
     </div>
 </body>
