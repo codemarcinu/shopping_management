@@ -1,16 +1,40 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lista Produktów</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <title>Product List</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Lista Produktów</h1>
-        <table class="product-table">
-            <!-- Nagłówki i produkty -->
-        </table>
-    </div>
+    <h1>Products</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Purchase Date</th>
+            <th>Expiry Date</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.purchase_date }}</td>
+            <td>{{ product.expiry_date }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.location }}</td>
+            <td>{{ product.status }}</td>
+            <td>
+                <form action="/delete/{{ product.id }}" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
