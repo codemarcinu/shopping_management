@@ -2,72 +2,15 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Produktów</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #2C2C2C;
-            --secondary-color: #3A3A3A;
-            --text-color: #F5F5F5;
-            --hover-color: #444444;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            margin: 0;
-        }
-        nav {
-            background-color: var(--secondary-color);
-            padding: 1rem;
-            text-align: center;
-        }
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: var(--secondary-color);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            color: var(--text-color);
-        }
-        th, td {
-            padding: 0.75rem;
-            text-align: left;
-        }
-        th {
-            background-color: #444444;
-        }
-        tr:nth-child(even) {
-            background-color: var(--hover-color);
-        }
-        .btn {
-            background-color: var(--hover-color);
-            color: var(--text-color);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            display: inline-block;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 <body>
-    <nav>
-        <a href="/">Zarządzanie Zakupami</a>
-    </nav>
     <div class="container">
-        <h3>Lista Produktów</h3>
-        <!-- Reszta kodu... -->
+        <h1>Lista Produktów</h1>
+        <table class="product-table">
+            <!-- Nagłówki i produkty -->
+        </table>
     </div>
 </body>
 </html>
