@@ -7,14 +7,12 @@
     <!-- Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <!-- Wbudowane style -->
     <style>
         :root {
             --md-primary: #6200EE;
             --md-on-primary: #FFFFFF;
             --md-surface: #FFFFFF;
             --md-background: #F5F5F5;
-            --md-error: #B00020;
         }
 
         body {
@@ -59,7 +57,7 @@
         .input-field input,
         .input-field select {
             width: 100%;
-            padding: 0.75rem 0.75rem 0.75rem 3rem; /* Dodaj lewy padding */
+            padding: 0.75rem 0.75rem 0.75rem 3rem;
             font-size: 1rem;
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -78,11 +76,11 @@
         .input-field .material-symbols-outlined {
             position: absolute;
             top: 50%;
-            left: 10px; /* Odległość od lewej krawędzi */
+            left: 10px;
             transform: translateY(-50%);
             color: var(--md-primary);
             font-size: 24px;
-            pointer-events: none; /* Ikony nie są interaktywne */
+            pointer-events: none;
         }
 
         .btn {
@@ -115,12 +113,21 @@
                 <label for="nazwa">Nazwa produktu</label>
             </div>
             <div class="input-field">
+                <span class="material-symbols-outlined">store</span>
+                <input type="text" name="sklep" id="sklep" required>
+                <label for="sklep">Sklep</label>
+            </div>
+            <div class="input-field">
                 <span class="material-symbols-outlined">category</span>
                 <select name="kategoria" required>
                     <option value="" disabled selected>Wybierz kategorię</option>
-                    {% for kategoria in categories %}
-                    <option value="{{ kategoria }}">{{ kategoria }}</option>
-                    {% endfor %}
+                    <option value="nabiał">Nabiał</option>
+                    <option value="pieczywo">Pieczywo</option>
+                    <option value="mięso">Mięso</option>
+                    <option value="warzywa">Warzywa</option>
+                    <option value="owoce">Owoce</option>
+                    <option value="napoje">Napoje</option>
+                    <option value="przekąski">Przekąski</option>
                 </select>
                 <label for="kategoria">Kategoria</label>
             </div>
