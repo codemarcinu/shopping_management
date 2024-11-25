@@ -4,8 +4,113 @@ body {
     padding: 0;
     background-color: #f4f4f4;
 }
-/* Reszta stylów */
 
-body {
-    font-family: Arial, sans-serif;
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.button {
+    text-decoration: none;
+    background: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    font-size: 16px;
+}
+
+.button:hover {
+    background: #0056b3;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.form-container label {
+    font-weight: bold;
+}
+
+.form-container input,
+.form-container select,
+.form-container button {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-container button {
+    background: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background: #0056b3;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.product-table th, .product-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.product-table th {
+    background: #f2f2f2;
+    font-weight: bold;
+}
+
+.product-table td {
+    vertical-align: middle;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.button-delete {
+    background: #FF0000;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-delete:hover {
+    background: #CC0000;
 }
