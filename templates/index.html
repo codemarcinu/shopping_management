@@ -1,14 +1,13 @@
-{% extends "base.html" %}
-
-{% block title %}Strona Główna{% endblock %}
-
-{% block content %}
-<div class="container">
-    <h1>Zarządzanie Zakupami</h1>
-    <div class="button-container">
-        <a href="{{ url_for('main.add_product') }}" class="button">Zrobiłem zakupy</a>
-        <a href="{{ url_for('main.list_products') }}" class="button">Co mam?</a>
-        <a href="{{ url_for('main.cook') }}" class="button">Gotuję</a>
-    </div>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Shopping Management</h1>
+    <a href="/add">I did shopping</a><br>
+    <a href="/products">What do I have?</a><br>
+    <a href="/cook">I'm cooking</a>
+</body>
+</html>
