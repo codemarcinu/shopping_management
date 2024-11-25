@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Strona Główna</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Zarządzanie Zakupami</h1>
-        <div class="button-container">
-            <a href="/dodaj" class="button">Zrobiłem zakupy</a>
-            <a href="/co-mam" class="button">Co mam?</a>
-            <a href="/gotuje" class="button">Gotuję</a>
-        </div>
+{% extends "base.html" %}
+
+{% block title %}Strona Główna{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Zarządzanie Zakupami</h1>
+    <div class="button-container">
+        <a href="{{ url_for('main.add_product') }}" class="button">Zrobiłem zakupy</a>
+        <a href="{{ url_for('main.list_products') }}" class="button">Co mam?</a>
+        <a href="{{ url_for('main.cook') }}" class="button">Gotuję</a>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
