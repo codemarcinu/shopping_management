@@ -8,19 +8,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2C2C2C; 
+            --primary-color: #2C2C2C;
             --secondary-color: #3A3A3A;
             --text-color: #F5F5F5;
-            --hover-color: #444444; 
+            --hover-color: #444444;
         }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--primary-color);
             color: var(--text-color);
+            margin: 0;
         }
-        nav, footer {
+        nav {
             background-color: var(--secondary-color);
-            color: var(--text-color);
             padding: 1rem;
             text-align: center;
         }
@@ -39,7 +39,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 1rem;
             color: var(--text-color);
         }
         th, td {
@@ -50,18 +49,15 @@
             background-color: #444444;
         }
         tr:nth-child(even) {
-            background-color: #3A3A3A;
+            background-color: var(--hover-color);
         }
         .btn {
-            background-color: #555555;
+            background-color: var(--hover-color);
             color: var(--text-color);
             border-radius: 8px;
             padding: 0.5rem 1rem;
             text-decoration: none;
             display: inline-block;
-        }
-        .btn:hover {
-            background-color: var(--hover-color);
         }
     </style>
 </head>
@@ -71,7 +67,7 @@
     </nav>
     <div class="container">
         <h3>Lista Produktów</h3>
-        <!-- Reszta kodu tutaj -->
+        <!-- Reszta kodu... -->
     </div>
 </body>
 </html>
