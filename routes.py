@@ -83,6 +83,12 @@ def lista_produktow():
 
     return render_template('product_list.html', produkty=produkty, sortuj_po=sortuj_po, kolejnosc=kolejnosc)
 
+@main.route('/co-mam')
+def co_mam():
+    with get_db_connection() as conn:
+        produkty = conn.execute('SELECT * FROM products WHERE quantity > 0').fetchall()
+    return render_template('product_list.html', produkty=produkty)
+
 @main.route('/usun/<int:id>', methods=['POST'])
 def usun_produkt(id):
     with get_db_connection() as conn:
