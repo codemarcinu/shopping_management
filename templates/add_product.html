@@ -1,112 +1,49 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dodaj produkt</title>
-    <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            max-width: 450px;
-            width: 100%;
-            margin-top: 50px; /* Formularz zaczyna się nieco niżej */
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px; /* Większy odstęp między polami */
-        }
-        label {
-            font-weight: bold;
-            font-size: 14px;
-            color: #555;
-        }
-        input, select, button {
-            font-size: 16px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
-        }
-        input:focus, select:focus {
-            outline: none;
-            border-color: #4285f4;
-            box-shadow: 0 0 6px rgba(66, 133, 244, 0.5);
-        }
-        button {
-            background-color: #4285f4;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            border: none;
-        }
-        button:hover {
-            background-color: #357ae8;
-        }
-    </style>
+    <title>Add Product</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Dodaj produkt</h1>
-        <form action="/dodaj" method="post">
-            <label for="nazwa">Nazwa produktu:</label>
-            <input type="text" id="nazwa" name="nazwa" required>
+    <h1>Add Product</h1>
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
 
-            <label for="kategoria">Kategoria:</label>
-            <select id="kategoria" name="kategoria">
-                {% for kategoria in kategorie %}
-                <option value="{{ kategoria }}">{{ kategoria }}</option>
-                {% endfor %}
-            </select>
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select><br>
 
-            <label for="data_zakupu">Data zakupu:</label>
-            <input type="date" id="data_zakupu" name="data_zakupu" required>
+        <label for="purchase_date">Purchase Date:</label>
+        <input type="date" id="purchase_date" name="purchase_date"><br>
 
-            <label for="data_waznosci">Data ważności:</label>
-            <input type="date" id="data_waznosci" name="data_waznosci">
+        <label for="expiry_date">Expiry Date:</label>
+        <input type="date" id="expiry_date" name="expiry_date"><br>
 
-            <label for="ilosc">Ilość:</label>
-            <input type="number" id="ilosc" name="ilosc" required>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity"><br>
 
-            <label for="cena">Cena:</label>
-            <input type="number" step="0.01" id="cena" name="cena" required>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01"><br>
 
-            <label for="lokalizacja">Lokalizacja:</label>
-            <select id="lokalizacja" name="lokalizacja">
-                {% for lokalizacja in lokalizacje %}
-                <option value="{{ lokalizacja }}">{{ lokalizacja }}</option>
-                {% endfor %}
-            </select>
+        <label for="location">Location:</label>
+        <select id="location" name="location">
+            {% for location in locations %}
+                <option value="{{ location }}">{{ location }}</option>
+            {% endfor %}
+        </select><br>
 
-            <label for="status">Status:</label>
-            <select id="status" name="status">
-                {% for status in statusy %}
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            {% for status in statuses %}
                 <option value="{{ status }}">{{ status }}</option>
-                {% endfor %}
-            </select>
+            {% endfor %}
+        </select><br>
 
-            <button type="submit">Dodaj produkt</button>
-        </form>
-    </div>
+        <button type="submit">Add Product</button>
+    </form>
 </body>
 </html>
-

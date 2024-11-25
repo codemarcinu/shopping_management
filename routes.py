@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
-from db import get_db_connection, get_expiring_products
+from db import get_db_connection
 
 main = Blueprint('main', __name__)
 
@@ -8,74 +8,73 @@ def index():
     # Strona główna
     return render_template('index.html')
 
-@main.route('/dodaj', methods=['GET', 'POST'])
-def dodaj_produkt():
+@main.route('/add', methods=['GET', 'POST'])
+def add_product():
     # Formularz dodawania nowego produktu
     if request.method == 'POST':
         try:
-            nazwa = request.form['nazwa']
-            kategoria = request.form['kategoria']
-            data_zakupu = request.form['data_zakupu']
-            data_waznosci = request.form['data_waznosci']
-            ilosc = int(request.form['ilosc'])
-            cena = float(request.form['cena'])
-            lokalizacja = request.form['lokalizacja']
+            name = request.form['name']
+            category = request.form['category']
+            purchase_date = request.form['purchase_date']
+            expiry_date = request.form['expiry_date']
+            quantity = int(request.form['quantity'])
+            price = float(request.form['price'])
+            location = request.form['location']
             status = request.form['status']
 
             with get_db_connection() as conn:
                 conn.execute('''
-                    INSERT INTO produkty (nazwa, kategoria, data_zakupu, data_waznosci,
-                    ilosc, cena, lokalizacja, status)
+                    INSERT INTO products (name, category, purchase_date, expiry_date,
+                    quantity, price, location, status)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                ''', (nazwa, kategoria, data_zakupu, data_waznosci, ilosc, cena, lokalizacja, status))
+                ''', (name, category, purchase_date, expiry_date, quantity, price, location, status))
                 conn.commit()
 
-            flash('Produkt został dodany pomyślnie!', 'success')
+            flash('Product added successfully!', 'success')
             return redirect(url_for('main.index'))
         except Exception as e:
-            flash(f'Wystąpił błąd podczas dodawania produktu: {str(e)}', 'danger')
+            flash(f'Error adding product: {str(e)}', 'danger')
 
     return render_template(
         'add_product.html',
-        kategorie=current_app.config['KATEGORIE'],
-        lokalizacje=current_app.config['LOKALIZACJE'],
-        statusy=current_app.config['STATUSY']
+        categories=current_app.config['CATEGORIES'],
+        locations=current_app.config['LOCATIONS'],
+        statuses=current_app.config['STATUSES']
     )
 
-@main.route('/co-mam')
-def co_mam():
+@main.route('/products')
+def view_products():
     # Pobieranie produktów z bazy danych
     with get_db_connection() as conn:
-        produkty = conn.execute('SELECT * FROM produkty').fetchall()
-    return render_template('product_list.html', produkty=produkty)
+        products = conn.execute('SELECT * FROM products').fetchall()
+    return render_template('product_list.html', products=products)
 
-@main.route('/usun/<int:id>', methods=['POST'])
-def usun_produkt(id):
+@main.route('/delete/<int:id>', methods=['POST'])
+def delete_product(id):
     # Usunięcie produktu z bazy danych
     with get_db_connection() as conn:
-        conn.execute('DELETE FROM produkty WHERE id = ?', (id,))
+        conn.execute('DELETE FROM products WHERE id = ?', (id,))
         conn.commit()
-    flash('Produkt został usunięty.', 'success')
-    return redirect(url_for('main.co_mam'))
+    flash('Product deleted successfully.', 'success')
+    return redirect(url_for('main.view_products'))
 
-@main.route('/gotuje', methods=['GET', 'POST'])
-def gotuje():
+@main.route('/cook', methods=['GET', 'POST'])
+def cook_products():
     # Zaznaczanie produktów do zużycia
     if request.method == 'POST':
-        zuzyte_produkty = request.form.getlist('produkty')
+        used_products = request.form.getlist('products')
         with get_db_connection() as conn:
-            for produkt_id in zuzyte_produkty:
+            for product_id in used_products:
                 conn.execute('''
-                    UPDATE produkty
-                    SET status = 'niedostępny', ilosc = ilosc - 1
-                    WHERE id = ? AND ilosc > 0
-                ''', (produkt_id,))
+                    UPDATE products
+                    SET status = 'unavailable', quantity = quantity - 1
+                    WHERE id = ? AND quantity > 0
+                ''', (product_id,))
             conn.commit()
-        flash(f'Zużyto {len(zuzyte_produkty)} produkty.', 'success')
-        return redirect(url_for('main.gotuje'))
+        flash(f'Used {len(used_products)} products.', 'success')
+        return redirect(url_for('main.cook_products'))
 
     # Pobieranie dostępnych produktów
     with get_db_connection() as conn:
-        produkty = conn.execute('SELECT * FROM produkty WHERE ilosc > 0').fetchall()
-    return render_template('cooking.html', produkty=produkty)
-
+        products = conn.execute('SELECT * FROM products WHERE quantity > 0').fetchall()
+    return render_template('cooking.html', products=products)

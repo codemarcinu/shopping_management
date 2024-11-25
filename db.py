@@ -16,23 +16,23 @@ def close_db(e=None):
     db = g.pop('db', None)
     if db is not None:
         db.close()
-
 def initialize_db():
     with get_db_connection() as conn:
         conn.execute('''
-            CREATE TABLE IF NOT EXISTS produkty (
+            CREATE TABLE IF NOT EXISTS products (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nazwa TEXT NOT NULL,
-                kategoria TEXT NOT NULL,
-                data_zakupu TEXT NOT NULL,
-                data_waznosci TEXT,
-                ilosc INTEGER NOT NULL,
-                cena REAL NOT NULL,
-                lokalizacja TEXT NOT NULL,
-                status TEXT NOT NULL DEFAULT 'dostępny'
+                name TEXT NOT NULL,
+                category TEXT NOT NULL,
+                purchase_date TEXT NOT NULL,
+                expiry_date TEXT,
+                quantity INTEGER NOT NULL,
+                price REAL NOT NULL,
+                location TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'available'
             )
         ''')
         conn.commit()
+
 
 def get_expiring_products(days=7):
     db = get_db_connection()
