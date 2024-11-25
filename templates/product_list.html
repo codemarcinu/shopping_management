@@ -1,40 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Product List</title>
-</head>
-<body>
-    <h1>Products</h1>
-    <table border="1">
+{% extends 'base.html' %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
         <tr>
-            <th>Name</th>
+            <th><a href="{{ url_for('main.list_products', sort='name', order='asc') }}">Name</a></th>
             <th>Category</th>
-            <th>Purchase Date</th>
-            <th>Expiry Date</th>
+            <th><a href="{{ url_for('main.list_products', sort='expiry_date', order='asc') }}">Expiry Date</a></th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Location</th>
             <th>Status</th>
-            <th>Actions</th>
         </tr>
+    </thead>
+    <tbody>
         {% for product in products %}
         <tr>
-            <td>{{ product.name }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.purchase_date }}</td>
-            <td>{{ product.expiry_date }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.location }}</td>
-            <td>{{ product.status }}</td>
-            <td>
-                <form action="/delete/{{ product.id }}" method="POST">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
+            <td>{{ product['name'] }}</td>
+            <td>{{ product['category'] }}</td>
+            <td>{{ product['expiry_date'] }}</td>
+            <td>{{ product['quantity'] }}</td>
+            <td>{{ product['price'] }}</td>
+            <td>{{ product['location'] }}</td>
+            <td>{{ product['status'] }}</td>
         </tr>
         {% endfor %}
-    </table>
-</body>
-</html>
+    </tbody>
+</table>
+{% endblock %}
