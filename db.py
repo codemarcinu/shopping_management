@@ -1,7 +1,5 @@
-
 import sqlite3
 from flask import current_app, g
-from datetime import datetime, timedelta
 
 def get_db_connection():
     if 'db' not in g:
@@ -16,6 +14,7 @@ def close_db(e=None):
     db = g.pop('db', None)
     if db is not None:
         db.close()
+
 def initialize_db():
     with get_db_connection() as conn:
         conn.execute('''
@@ -32,17 +31,3 @@ def initialize_db():
             )
         ''')
         conn.commit()
-
-
-def get_expiring_products(days=7):
-    db = get_db_connection()
-    current_date = datetime.now()
-    expiring_date = current_date + timedelta(days=days)
-
-    query = '''
-        SELECT * FROM produkty
-        WHERE data_waznosci BETWEEN ? AND ?
-    '''
-    params = (current_date.strftime('%Y-%m-%d'), expiring_date.strftime('%Y-%m-%d'))
-    produkty = db.execute(query, params).fetchall()
-    return produkty
