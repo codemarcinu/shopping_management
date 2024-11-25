@@ -13,6 +13,7 @@ def dodaj_produkt():
     if request.method == 'POST':
         try:
             nazwa = request.form['nazwa']
+            sklep = request.form['sklep']  # Nowe pole
             kategoria = request.form['kategoria']
             data_zakupu = request.form['data_zakupu']
             data_waznosci = request.form.get('data_waznosci')
@@ -21,12 +22,15 @@ def dodaj_produkt():
             lokalizacja = request.form['lokalizacja']
             status = request.form.get('status', 'available')
 
-            if not nazwa or kategoria not in current_app.config['CATEGORIES']:
-                flash('Nieprawidłowe dane produktu.', 'danger')
+            # Walidacja nowego pola
+            if not nazwa or not sklep or kategoria not in current_app.config['CATEGORIES']:
+                flash('Nieprawidłowe dane produktu lub brak sklepu.', 'danger')
                 return redirect(url_for('main.dodaj_produkt'))
             if lokalizacja not in current_app.config['LOCATIONS']:
                 flash('Nieprawidłowa lokalizacja.', 'danger')
                 return redirect(url_for('main.dodaj_produkt'))
+
+            # Walidacja liczb i dat
             try:
                 ilosc = int(ilosc)
                 cena = float(cena)
@@ -43,12 +47,13 @@ def dodaj_produkt():
                 flash('Nieprawidłowy format daty.', 'danger')
                 return redirect(url_for('main.dodaj_produkt'))
 
+            # Dodanie produktu do bazy danych
             with get_db_connection() as conn:
                 conn.execute('''
-                    INSERT INTO products (name, category, purchase_date, expiry_date,
+                    INSERT INTO products (name, store, category, purchase_date, expiry_date,
                     quantity, price, location, status)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                ''', (nazwa, kategoria, data_zakupu, data_waznosci, ilosc, cena, lokalizacja, status))
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ''', (nazwa, sklep, kategoria, data_zakupu, data_waznosci, ilosc, cena, lokalizacja, status))
                 conn.commit()
 
             flash('Produkt dodany pomyślnie!', 'success')
