@@ -13,7 +13,7 @@ def dodaj_produkt():
     if request.method == 'POST':
         try:
             nazwa = request.form['nazwa']
-            sklep = request.form['sklep']  # Nowe pole
+            sklep = request.form['sklep']
             kategoria = request.form['kategoria']
             data_zakupu = request.form['data_zakupu']
             data_waznosci = request.form.get('data_waznosci')
@@ -22,15 +22,13 @@ def dodaj_produkt():
             lokalizacja = request.form['lokalizacja']
             status = request.form.get('status', 'available')
 
-            # Walidacja nowego pola
             if not nazwa or not sklep or kategoria not in current_app.config['CATEGORIES']:
-                flash('Nieprawidłowe dane produktu lub brak sklepu.', 'danger')
+                flash('Nieprawidłowe dane produktu.', 'danger')
                 return redirect(url_for('main.dodaj_produkt'))
             if lokalizacja not in current_app.config['LOCATIONS']:
                 flash('Nieprawidłowa lokalizacja.', 'danger')
                 return redirect(url_for('main.dodaj_produkt'))
 
-            # Walidacja liczb i dat
             try:
                 ilosc = int(ilosc)
                 cena = float(cena)
@@ -47,7 +45,6 @@ def dodaj_produkt():
                 flash('Nieprawidłowy format daty.', 'danger')
                 return redirect(url_for('main.dodaj_produkt'))
 
-            # Dodanie produktu do bazy danych
             with get_db_connection() as conn:
                 conn.execute('''
                     INSERT INTO products (name, store, category, purchase_date, expiry_date,
@@ -69,9 +66,22 @@ def dodaj_produkt():
 
 @main.route('/produkty')
 def lista_produktow():
+    sortuj_po = request.args.get('sortuj_po', 'name')
+    kolejnosc = request.args.get('kolejnosc', 'asc')
+
+    kolumny_sortowania = ['name', 'purchase_date', 'expiry_date', 'quantity']
+    if sortuj_po not in kolumny_sortowania:
+        sortuj_po = 'name'
+
+    kolejnosc_sql = 'ASC' if kolejnosc == 'asc' else 'DESC'
+
     with get_db_connection() as conn:
-        produkty = conn.execute('SELECT * FROM products').fetchall()
-    return render_template('product_list.html', produkty=produkty)
+        produkty = conn.execute(f'''
+            SELECT * FROM products
+            ORDER BY {sortuj_po} {kolejnosc_sql}
+        ''').fetchall()
+
+    return render_template('product_list.html', produkty=produkty, sortuj_po=sortuj_po, kolejnosc=kolejnosc)
 
 @main.route('/usun/<int:id>', methods=['POST'])
 def usun_produkt(id):
