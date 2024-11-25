@@ -1,32 +1,140 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Produktów</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <!-- Style -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-{% block title %}Inventory{% endblock %}
+        nav {
+            background-color: #6200EE;
+            padding: 1rem;
+            text-align: center;
+        }
 
-{% block content %}
-<table>
-    <thead>
-        <tr>
-            <th><a href="{{ url_for('main.list_products', sort='name', order='asc') }}">Name</a></th>
-            <th>Category</th>
-            <th><a href="{{ url_for('main.list_products', sort='expiry_date', order='asc') }}">Expiry Date</a></th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Location</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for product in products %}
-        <tr>
-            <td>{{ product['name'] }}</td>
-            <td>{{ product['category'] }}</td>
-            <td>{{ product['expiry_date'] }}</td>
-            <td>{{ product['quantity'] }}</td>
-            <td>{{ product['price'] }}</td>
-            <td>{{ product['location'] }}</td>
-            <td>{{ product['status'] }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% endblock %}
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+
+        h3 {
+            text-align: center;
+            color: #6200EE;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #6200EE;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .status-available {
+            color: green;
+        }
+
+        .status-unavailable {
+            color: red;
+        }
+
+        .status-running-low {
+            color: orange;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            color: white;
+            background-color: #6200EE;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #3700B3;
+        }
+
+        .btn-delete {
+            background-color: #B00020;
+        }
+
+        .btn-delete:hover {
+            background-color: #7E0016;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Zarządzanie Zakupami</a>
+    </nav>
+    <div class="container">
+        <h3>Lista Produktów</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th><a href="/produkty?sortuj_po=name">Nazwa</a></th>
+                    <th><a href="/produkty?sortuj_po=category">Kategoria</a></th>
+                    <th><a href="/produkty?sortuj_po=purchase_date">Data Zakupu</a></th>
+                    <th><a href="/produkty?sortuj_po=expiry_date">Data Ważności</a></th>
+                    <th><a href="/produkty?sortuj_po=quantity">Ilość</a></th>
+                    <th>Sklep</th>
+                    <th>Status</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produkt in produkty %}
+                <tr>
+                    <td>{{ produkt['name'] }}</td>
+                    <td>{{ produkt['category'] }}</td>
+                    <td>{{ produkt['purchase_date'] }}</td>
+                    <td>{{ produkt['expiry_date'] or '-' }}</td>
+                    <td>{{ produkt['quantity'] }}</td>
+                    <td>{{ produkt['store'] }}</td>
+                    <td class="status-{{ produkt['status'] }}">{{ produkt['status'] }}</td>
+                    <td>
+                        <form method="POST" action="/usun/{{ produkt['id'] }}" style="display:inline;">
+                            <button type="submit" class="btn btn-delete">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
