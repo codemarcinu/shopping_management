@@ -1,13 +1,10 @@
 import os
 
-class Config:
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    SECRET_KEY = os.urandom(24)
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+SECRET_KEY = os.urandom(24)
 
-    # Database path
-    DATABASE = os.path.join(BASE_DIR, 'shopping.db')
+DATABASE = os.path.join(BASE_DIR, 'shopping.db')
 
-    # Application constants
-    CATEGORIES = ['Dairy', 'Bread', 'Meat', 'Vegetables', 'Fruits', 'Drinks', 'Snacks']
-    LOCATIONS = ['Fridge', 'Freezer', 'Pantry', 'Kitchen Cabinet']
-    STATUSES = ['available', 'running low', 'unavailable']
+CATEGORIES = ['Nabiał', 'Pieczywo', 'Mięso', 'Warzywa', 'Owoce', 'Napoje', 'Przekąski']
+LOCATIONS = ['Lodówka', 'Zamrażarka', 'Spiżarnia', 'Szafka kuchenna']
+STATUSES = ['available', 'running low', 'unavailable']
