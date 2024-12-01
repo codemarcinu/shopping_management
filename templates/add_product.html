@@ -8,29 +8,32 @@
     <h1>Add Product</h1>
     <form method="POST">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="store">Store:</label>
+        <input type="text" id="store" name="store" required><br>
 
         <label for="category">Category:</label>
-        <select id="category" name="category">
+        <select id="category" name="category" required>
             {% for category in categories %}
                 <option value="{{ category }}">{{ category }}</option>
             {% endfor %}
         </select><br>
 
         <label for="purchase_date">Purchase Date:</label>
-        <input type="date" id="purchase_date" name="purchase_date"><br>
+        <input type="date" id="purchase_date" name="purchase_date" required><br>
 
         <label for="expiry_date">Expiry Date:</label>
         <input type="date" id="expiry_date" name="expiry_date"><br>
 
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity"><br>
+        <input type="number" id="quantity" name="quantity" required><br>
 
         <label for="price">Price:</label>
-        <input type="number" id="price" name="price" step="0.01"><br>
+        <input type="number" id="price" name="price" step="0.01" required><br>
 
         <label for="location">Location:</label>
-        <select id="location" name="location">
+        <select id="location" name="location" required>
             {% for location in locations %}
                 <option value="{{ location }}">{{ location }}</option>
             {% endfor %}
