@@ -8,55 +8,57 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
-@main.route('/dodaj', methods=['GET', 'POST'])
-def dodaj_produkt():
+@main.route('/add', methods=['GET', 'POST'])
+def add_product():
     if request.method == 'POST':
         try:
-            nazwa = request.form['nazwa']
-            sklep = request.form['sklep']
-            kategoria = request.form['kategoria']
-            data_zakupu = request.form['data_zakupu']
-            data_waznosci = request.form.get('data_waznosci')
-            ilosc = request.form['ilosc']
-            cena = request.form['cena']
-            lokalizacja = request.form['lokalizacja']
+            name = request.form['name']
+            store = request.form['store']
+            category = request.form['category']
+            purchase_date = request.form['purchase_date']
+            expiry_date = request.form.get('expiry_date')
+            quantity = request.form['quantity']
+            price = request.form['price']
+            location = request.form['location']
             status = request.form.get('status', 'available')
 
-            if not nazwa or not sklep or kategoria not in current_app.config['CATEGORIES']:
-                flash('Nieprawidłowe dane produktu.', 'danger')
-                return redirect(url_for('main.dodaj_produkt'))
-            if lokalizacja not in current_app.config['LOCATIONS']:
-                flash('Nieprawidłowa lokalizacja.', 'danger')
-                return redirect(url_for('main.dodaj_produkt'))
+            if not name or not store or category not in current_app.config['CATEGORIES']:
+                flash('Invalid product data.', 'danger')
+                return redirect(url_for('main.add_product'))
+            if location not in current_app.config['LOCATIONS']:
+                flash('Invalid location.', 'danger')
+                return redirect(url_for('main.add_product'))
 
             try:
-                ilosc = int(ilosc)
-                cena = float(cena)
-                if ilosc <= 0 or cena < 0:
+                quantity = int(quantity)
+                price = float(price)
+                if quantity <= 0 or price < 0:
                     raise ValueError()
             except ValueError:
-                flash('Ilość i cena muszą być poprawnymi liczbami.', 'danger')
-                return redirect(url_for('main.dodaj_produkt'))
+                flash('Quantity and price must be valid numbers.', 'danger')
+                return redirect(url_for('main.add_product'))
+
             try:
-                datetime.strptime(data_zakupu, '%Y-%m-%d')
-                if data_waznosci:
-                    datetime.strptime(data_waznosci, '%Y-%m-%d')
+                datetime.strptime(purchase_date, '%Y-%m-%d')
+                if expiry_date:
+                    datetime.strptime(expiry_date, '%Y-%m-%d')
             except ValueError:
-                flash('Nieprawidłowy format daty.', 'danger')
-                return redirect(url_for('main.dodaj_produkt'))
+                flash('Invalid date format.', 'danger')
+                return redirect(url_for('main.add_product'))
 
             with get_db_connection() as conn:
                 conn.execute('''
                     INSERT INTO products (name, store, category, purchase_date, expiry_date,
                     quantity, price, location, status)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ''', (nazwa, sklep, kategoria, data_zakupu, data_waznosci, ilosc, cena, lokalizacja, status))
+                ''', (name, store, category, purchase_date, expiry_date, quantity, price, location, status))
                 conn.commit()
 
-            flash('Produkt dodany pomyślnie!', 'success')
+            flash('Product added successfully!', 'success')
             return redirect(url_for('main.index'))
         except Exception as e:
-            flash(f'Wystąpił błąd: {str(e)}', 'danger')
+            flash(f'An error occurred: {str(e)}', 'danger')
+
     return render_template(
         'add_product.html',
         categories=current_app.config['CATEGORIES'],
@@ -64,78 +66,77 @@ def dodaj_produkt():
         statuses=current_app.config['STATUSES']
     )
 
-@main.route('/produkty')
-def lista_produktow():
-    sortuj_po = request.args.get('sortuj_po', 'name')
-    kolejnosc = request.args.get('kolejnosc', 'asc')
+@main.route('/products')
+def list_products():
+    sort_by = request.args.get('sort_by', 'name')
+    order = request.args.get('order', 'asc')
 
-    kategoria = request.args.get('kategoria')
+    category = request.args.get('category')
     status = request.args.get('status')
-    lokalizacja = request.args.get('lokalizacja')
+    location = request.args.get('location')
 
-    kolumny_sortowania = ['name', 'purchase_date', 'expiry_date', 'quantity']
-    if sortuj_po not in kolumny_sortowania:
-        sortuj_po = 'name'
+    sort_columns = ['name', 'purchase_date', 'expiry_date', 'quantity']
+    if sort_by not in sort_columns:
+        sort_by = 'name'
 
-    kolejnosc_sql = 'ASC' if kolejnosc == 'asc' else 'DESC'
+    order_sql = 'ASC' if order == 'asc' else 'DESC'
 
     query = 'SELECT * FROM products WHERE 1=1'
     params = []
 
-    # Dodajemy filtry, jeśli są podane
-    if kategoria:
+    if category:
         query += ' AND category = ?'
-        params.append(kategoria)
+        params.append(category)
     if status:
         query += ' AND status = ?'
         params.append(status)
-    if lokalizacja:
+    if location:
         query += ' AND location = ?'
-        params.append(lokalizacja)
+        params.append(location)
 
-    query += f' ORDER BY {sortuj_po} {kolejnosc_sql}'
+    query += f' ORDER BY {sort_by} {order_sql}'
 
     with get_db_connection() as conn:
-        produkty = conn.execute(query, params).fetchall()
+        products = conn.execute(query, params).fetchall()
 
     return render_template(
         'product_list.html',
-        produkty=produkty,
-        sortuj_po=sortuj_po,
-        kolejnosc=kolejnosc,
+        products=products,
+        sort_by=sort_by,
+        order=order,
         categories=current_app.config['CATEGORIES'],
         locations=current_app.config['LOCATIONS']
     )
 
-@main.route('/co-mam')
-def co_mam():
+@main.route('/inventory')
+def inventory():
     with get_db_connection() as conn:
-        produkty = conn.execute('SELECT * FROM products WHERE quantity > 0').fetchall()
-    return render_template('product_list.html', produkty=produkty)
+        products = conn.execute('SELECT * FROM products WHERE quantity > 0').fetchall()
+    return render_template('product_list.html', products=products)
 
-@main.route('/usun/<int:id>', methods=['POST'])
-def usun_produkt(id):
+@main.route('/delete/<int:id>', methods=['POST'])
+def delete_product(id):
     with get_db_connection() as conn:
         conn.execute('DELETE FROM products WHERE id = ?', (id,))
         conn.commit()
-    flash('Produkt usunięty.', 'success')
-    return redirect(url_for('main.lista_produktow'))
+    flash('Product deleted.', 'success')
+    return redirect(url_for('main.list_products'))
 
-@main.route('/gotuje', methods=['GET', 'POST'])
-def gotuje():
+@main.route('/cook', methods=['GET', 'POST'])
+def cook():
     if request.method == 'POST':
-        zuzyte_produkty = request.form.getlist('produkty')
+        used_products = request.form.getlist('products')
         with get_db_connection() as conn:
-            for produkt_id in zuzyte_produkty:
+            for product_id in used_products:
                 conn.execute('''
                     UPDATE products
                     SET status = 'unavailable', quantity = quantity - 1
                     WHERE id = ? AND quantity > 0
-                ''', (produkt_id,))
+                ''', (product_id,))
             conn.commit()
-        flash(f'Zużyto {len(zuzyte_produkty)} produkty.', 'success')
-        return redirect(url_for('main.gotuje'))
+        flash(f'Used {len(used_products)} products.', 'success')
+        return redirect(url_for('main.cook'))
 
     with get_db_connection() as conn:
-        produkty = conn.execute('SELECT * FROM products WHERE quantity > 0').fetchall()
-    return render_template('cooking.html', produkty=produkty)
+        products = conn.execute('SELECT * FROM products WHERE quantity > 0').fetchall()
+    return render_template('cooking.html', products=products)
