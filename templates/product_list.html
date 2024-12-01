@@ -6,9 +6,10 @@
 <table>
     <thead>
         <tr>
-            <th><a href="{{ url_for('main.list_products', sort='name', order='asc') }}">Name</a></th>
+            <th><a href="{{ url_for('main.list_products', sort_by='name', order='asc') }}">Name</a></th>
+            <th>Store</th>
             <th>Category</th>
-            <th><a href="{{ url_for('main.list_products', sort='expiry_date', order='asc') }}">Expiry Date</a></th>
+            <th><a href="{{ url_for('main.list_products', sort_by='expiry_date', order='asc') }}">Expiry Date</a></th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Location</th>
@@ -19,6 +20,7 @@
         {% for product in products %}
         <tr>
             <td>{{ product['name'] }}</td>
+            <td>{{ product['store'] }}</td>
             <td>{{ product['category'] }}</td>
             <td>{{ product['expiry_date'] }}</td>
             <td>{{ product['quantity'] }}</td>
